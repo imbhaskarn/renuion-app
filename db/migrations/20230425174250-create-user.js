@@ -9,13 +9,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      firstName: {
+      id: {
+        type: Sequelize.INTEGER
+      },
+      name: {
         type: Sequelize.STRING
       },
-      lastName: {
-        type: Sequelize.STRING
-      },
-      username: {
+      email: {
         type: Sequelize.STRING
       },
       password: {
@@ -29,10 +29,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    }),
-    tablename: 'users'
+    });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users'),
+    await queryInterface.dropTable('Users');
   }
 };

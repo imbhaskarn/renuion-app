@@ -1,30 +1,30 @@
+"use strict";
 
-import { Sequelize, DataTypes } from "sequelize";
-import config from "../../config/config.js";
-import user from "./user.js";
-
-//manually import models
-
+require("dotenv").config();
+const fs = require("fs");
+const path = require("path");
+const Sequelize = require("sequelize");
+const basename = path.basename(__filename);
+const env = process.env.NODE_ENV || "development";
+const config = require("../config/config")[env];
+console.log(config)
 const db = {};
-const sequelize = new Sequelize(
-  config.db.database,
-  config.db.username,
-  config.db.password,
-  {
-    host: config.db.host,
-    dialect: 'postgres',
-  }
-);
 
-const User = user(sequelize, DataTypes);
-db.User = User;
+const sequelize = new Sequelize(config.DB_URI);
 
-// for await (const file of files) {
-//   const model = await import(`./${file}`);
-//   const namedModel = model.default(sequelize, DataTypes);
-//   db[namedModel.name] = namedModel;
-// }
-
+fs.readdirSync(__dirname)
+  .filter((file) => {
+    return (
+      file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
+    );
+  })
+  .forEach((file) => {
+    const model = require(path.join(__dirname, file))(
+      sequelize,
+      Sequelize.DataTypes
+    );
+    db[model.name] = model;
+  });
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
@@ -34,4 +34,5 @@ Object.keys(db).forEach((modelName) => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-export default db;
+module.exports = db;
+// docker run -d 	--name some-postgres 	-e POSTGRES_PASSWORD=secret 	-e PGDATA=/var/lib/postgresql/data/pgdata 	-v /custom/mount:/var/lib/postgresql/data 	postgres
