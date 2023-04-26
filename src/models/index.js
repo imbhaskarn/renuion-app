@@ -39,4 +39,3 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 module.exports = db;
-// docker run -d 	--name some-postgres 	-e POSTGRES_PASSWORD=secret 	-e PGDATA=/var/lib/postgresql/data/pgdata 	-v /custom/mount:/var/lib/postgresql/data 	postgres
