@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Fllow extends Model {
+  class Follower extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       models.User.hasMany(Follower, { foreignKey: "followedBy" });
     }
   }
-  Fllow.init(
+  Follower.init(
     {
       id: {
         allowNull: false,
@@ -41,8 +41,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Fllow",
+      modelName: "Follower",
     }
   );
-  return Fllow;
+  return Follower;
 };

@@ -13,7 +13,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
-      followerBy: {
+      followedBy: {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
@@ -33,6 +33,7 @@ module.exports = {
       references: {
         table: "Users",
         field: "id",
+        onDelete: 'CASCADE' // Specify the ON DELETE action
       },
     });
     await queryInterface.addConstraint("Followers", {
@@ -42,6 +43,7 @@ module.exports = {
       references: {
         table: "Users",
         field: "id",
+        onDelete: 'CASCADE' // Specify the ON DELETE action
       },
     });
   },
@@ -51,7 +53,7 @@ module.exports = {
       "follower_user_constraint"
     );
     await queryInterface.removeConstraint(
-      "Posts",
+      "Followers",
       "followedby_user_constraint"
     );
     await queryInterface.dropTable("Followers");

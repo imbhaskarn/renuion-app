@@ -41,6 +41,7 @@ module.exports = {
       references: {
         table: "Users",
         field: "id",
+        onDelete: 'CASCADE' // Specify the ON DELETE action
       },
     });
   },
