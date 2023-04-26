@@ -66,7 +66,30 @@ const allPosts = (req, res) => {
         .json({ result: "fail", message: "Internal server error" });
     });
 };
-const deletePost = (req, res) => {};
+const deletePost = (req, res) => {
+  const validationError = JoiValidator.idSchema(req.params);
+  if (validationError) {
+    return res.status(400).json(validationError);
+  }
+  const id = req.params;
+  db.Post.destroy({ where: { ...id, userId: req.payload.id } })
+    .then((post) => {
+      console.log(post)
+      if (!post) {
+        return res
+          .status(404)
+          .json({ result: "fail", message: `post not found with id: ${id}.` });
+      }
+      console.log(post);
+      return res.status(200).json(post);
+    })
+    .catch((err) => {
+      console.log(err);
+      return res
+        .status(500)
+        .json({ result: "fail", message: "Internal server error" });
+    });
+};
 
 module.exports = {
   createPost,

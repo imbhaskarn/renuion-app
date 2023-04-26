@@ -36,6 +36,7 @@ module.exports = {
       references: {
         table: "Users",
         field: "id",
+        onDelete: 'CASCADE' // Specify the ON DELETE action
       },
     });
     await queryInterface.addConstraint("Likes", {
@@ -45,6 +46,7 @@ module.exports = {
       references: {
         table: "Posts",
         field: "id",
+        onDelete: 'CASCADE' // Specify the ON DELETE action
       },
     });
   },
