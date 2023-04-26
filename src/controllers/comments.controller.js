@@ -1,13 +1,21 @@
 const db = require("../models/index");
 const JoiValidator = require("../helpers/joiValidator");
-const createPost = (req, res) => {
-  const error = JoiValidator.postSchema(req.body);
-  if (error) {
-    return res.status(400).json({ result: "fail", message: error });
+const postComment = (req, res) => {
+  console.log(req.params)
+  const idError = JoiValidator.idSchema(req.params);
+  const commentError = JoiValidator.commentScema(req.body);
+  if (idError || commentError) {
+    return res
+      .status(400)
+      .json({ result: "fail", message: idError || commentError });
   }
-  db.Post.create({ ...req.body, userId: req.payload.id })
-    .then((post) => {
-      return res.status(201).json(post);
+  db.Comment.create({
+    content: req.body.content,
+    userId: req.payload.id,
+    postId: req.params.id,
+  })
+    .then((comment) => {
+      return res.status(201).json({ commentId: comment.id });
     })
     .catch((err) => {
       console.log(err);
