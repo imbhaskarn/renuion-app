@@ -3,6 +3,7 @@ const { authController } = require("../controllers/auth.controller");
 const router = express.Router();
 const verifyToken = require("../middlewares/verifyToken");
 const { createPost, getPost, allPosts, deletePost } = require("../controllers/post.controller");
+const { postComment } = require("../controllers/comments.controller");
 
 //return authenticated user profile
 router.get("/user", verifyToken);
@@ -29,7 +30,7 @@ router.post("/unLike/:id", verifyToken);
 router.delete("/posts/:id", verifyToken, deletePost);
 
 //comment on a post by post id
-router.post("/comment/:id", verifyToken);
+router.post("/comment/:id", verifyToken, postComment);
 
 //follow unfollow a user
 router.post("/follow", verifyToken);
