@@ -22,7 +22,10 @@ const getPost = (req, res) => {
     return res.status(400).json(validationError);
   }
   const id = req.params;
-  db.Post.findOne({ where: { ...id, userId: req.payload.id } })
+  db.Post.findOne({ where: { ...id, userId: req.payload.id }, include: [{
+    model: db.Comment,
+    as: 'Comments'
+  }] })
     .then((post) => {
       if (!post) {
         return res
