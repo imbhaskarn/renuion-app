@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING,
       },
+      likes:{
+        defaultValue: 0,
+        type: DataTypes.INTEGER
+      },
       userId:{
         allowNull:false,
         type: DataTypes.INTEGER,

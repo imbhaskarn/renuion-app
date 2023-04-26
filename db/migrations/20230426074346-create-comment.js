@@ -54,6 +54,6 @@ module.exports = {
   async down(queryInterface, Sequelize) {
     await queryInterface.removeConstraint("Comments", "comment_user_constraint");
     await queryInterface.removeConstraint("Comments", "comment_post_constraint");
-    await queryInterface.dropTable("Comment");
+    await queryInterface.dropTable("Comments");
   },
 };

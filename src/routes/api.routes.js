@@ -2,15 +2,20 @@ const express = require("express");
 const { authController } = require("../controllers/auth.controller");
 const router = express.Router();
 const verifyToken = require("../middlewares/verifyToken");
-const { createPost, getPost, allPosts, deletePost } = require("../controllers/post.controller");
+const {
+  createPost,
+  getPost,
+  allPosts,
+  deletePost,
+} = require("../controllers/post.controller");
 const { postComment } = require("../controllers/comments.controller");
-
+const { getUser } = require("../controllers/user.controller");
+const { likePost, unlikePost } = require("../controllers/like.controller");
 //return authenticated user profile
-router.get("/user", verifyToken);
+router.get("/user", verifyToken, getUser);
 
 // authenticate a valid user
 router.post("/authenticate", authController);
-
 
 //delete a post
 router.post("/posts", verifyToken, createPost);
@@ -18,13 +23,12 @@ router.post("/posts", verifyToken, createPost);
 //get a post by id
 router.get("/posts/:id", verifyToken, getPost);
 
-
 //get all posts
-router.get("/all_posts", verifyToken,allPosts);
+router.get("/all_posts", verifyToken, allPosts);
 
 //Like unLike a post by id
-router.post("/Like/:id", verifyToken);
-router.post("/unLike/:id", verifyToken);
+router.post("/like/:id", verifyToken, likePost);
+router.post("/unlike/:id", verifyToken, unlikePost);
 
 //delete a post by id
 router.delete("/posts/:id", verifyToken, deletePost);
