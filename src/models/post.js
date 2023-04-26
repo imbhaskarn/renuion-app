@@ -4,8 +4,8 @@ module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
 
     static associate(models) {
-      Post.belongsTo(models.User, {foreignKey: userId})
-      models.User.hasMany(Post, {foreignKey: userId})
+      Post.belongsTo(models.User, {foreignKey: 'userId'})
+      models.User.hasMany(Post, {foreignKey: 'userId'})
     }
   }
   Post.init(

@@ -1,20 +1,20 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Comment extends Model {
+  class Fllow extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Comment.belongsTo(models.User, {foreignKey: 'userId'})
-      models.User.hasMany(Comment, {foreignKey: 'userId'})
-      Comment.belongsTo(models.Post, {foreignKey: 'postId'})
-      models.Post.hasMany(Comment, {foreignKey: 'postId'})
+      Follower.belongsTo(models.User, { foreignKey: "userId" });
+      models.User.hasMany(Follower, { foreignKey: "userId" });
+      Follower.belongsTo(models.User, { foreignKey: "followedBy" });
+      models.User.hasMany(Follower, { foreignKey: "followedBy" });
     }
   }
-  Comment.init(
+  Fllow.init(
     {
       id: {
         allowNull: false,
@@ -22,17 +22,13 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      postId: {
-        allowNull: false,
-        type: DataTypes.INTEGER,
-      },
       userId: {
         allowNull: false,
         type: DataTypes.INTEGER,
       },
-      content: {
+      followedBy: {
         allowNull: false,
-        type: DataTypes.TEXT,
+        type: DataTypes.INTEGER,
       },
       createdAt: {
         allowNull: false,
@@ -45,8 +41,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Comment",
+      modelName: "Fllow",
     }
   );
-  return Comment;
+  return Fllow;
 };

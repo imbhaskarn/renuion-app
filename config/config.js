@@ -17,5 +17,5 @@ const config = {
     dialect: "postgres",
   },
 };
-// console.log(config)
+
 module.exports = config;

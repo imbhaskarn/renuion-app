@@ -1,29 +1,21 @@
 "use strict";
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Posts", {
+    await queryInterface.createTable("Followers", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      title: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
       userId: {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
-      Likes: {
+      followerBy: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        default: 0,
-      },
-      description: {
-        allowNull: false,
-        type: Sequelize.TEXT,
       },
       createdAt: {
         allowNull: false,
@@ -34,10 +26,19 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
-    await queryInterface.addConstraint("Posts", {
+    await queryInterface.addConstraint("Followers", {
       fields: ["userId"],
       type: "FOREIGN KEY",
-      name: "post_user_constraint",
+      name: "follower_user_constraint",
+      references: {
+        table: "Users",
+        field: "id",
+      },
+    });
+    await queryInterface.addConstraint("Followers", {
+      fields: ["followedBy"],
+      type: "FOREIGN KEY",
+      name: "followedby_user_constraint",
       references: {
         table: "Users",
         field: "id",
@@ -45,7 +46,14 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.removeConstraint("Posts", "post_user_constraint");
-    await queryInterface.dropTable("Posts");
+    await queryInterface.removeConstraint(
+      "Followers",
+      "follower_user_constraint"
+    );
+    await queryInterface.removeConstraint(
+      "Posts",
+      "followedby_user_constraint"
+    );
+    await queryInterface.dropTable("Followers");
   },
 };
