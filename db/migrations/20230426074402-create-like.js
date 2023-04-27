@@ -46,6 +46,7 @@ module.exports = {
         onDelete: 'CASCADE' // Specify the ON DELETE action
       },
     });
+    
     await queryInterface.addIndex('Likes', ['postId', 'userId'], {
       unique: true,
       name: 'unique_post_user_likes',
