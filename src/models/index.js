@@ -9,7 +9,15 @@ const env = process.env.NODE_ENV || "development";
 const config = require("../../config/config")[env];
 const db = {};
 
-const sequelize = new Sequelize(config.DB_URI, { logging: false });
+const sequelize = new Sequelize(config.DB_URI, {
+  logging: false,
+  dialectOptions: {
+    ssl: {
+      require: true, // This will help you. But you will see new error
+      rejectUnauthorized: false, // This line will fix new error
+    },
+  },
+});
 
 if (env != "test") {
   sequelize

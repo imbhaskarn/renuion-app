@@ -14,6 +14,12 @@ const config = {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     dialect: "postgres",
+    dialectOptions: {
+      ssl: {
+        require: true, // This will help you. But you will see new error
+        rejectUnauthorized: false, // This line will fix new error
+      },
+    },
   },
   test: {
     APP_HOST: "0.0.0.0",
