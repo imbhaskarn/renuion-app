@@ -7,7 +7,6 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: secret
       POSTGRES_DB: reunion
-    network_mode: host
     volumes:
       - dbdata:/var/lib/postgresql/data
 
@@ -20,7 +19,6 @@ services:
       - db
     environment:
       NODE_ENV: development
-  
 
 volumes:
   dbdata:

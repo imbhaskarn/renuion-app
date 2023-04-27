@@ -1,0 +1,11 @@
+services:
+  app:
+    container_name: reunion_api
+    build: .
+    restart: always
+    networks:
+      - reunion
+
+networks:
+  reunion:
+    external: true
