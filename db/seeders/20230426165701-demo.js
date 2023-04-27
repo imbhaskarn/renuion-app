@@ -4,31 +4,31 @@ const bcrypt = require("bcrypt");
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    // const users = [
-    //   {
-    //     name: "John Doe",
-    //     email: "john@example.com",
-    //     password: await bcrypt.hash("reunion", 10),
-    //     createdAt: new Date(),
-    //     updatedAt: new Date(),
-    //   },
-    //   {
-    //     name: "Jane Doe",
-    //     email: "jane@example.com",
-    //     password: await bcrypt.hash("reunion", 10),
-    //     createdAt: new Date(),
-    //     updatedAt: new Date(),
-    //   },
-    //   {
-    //     name: "Bob Smith",
-    //     email: "bob@example.com",
-    //     password: await bcrypt.hash("reunion", 10),
-    //     createdAt: new Date(),
-    //     updatedAt: new Date(),
-    //   },
-    // ];
+    const users = [
+      {
+        name: "John Doe",
+        email: "john@example.com",
+        password: await bcrypt.hash("reunion", 10),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "Jane Doe",
+        email: "jane@example.com",
+        password: await bcrypt.hash("reunion", 10),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "Bob Smith",
+        email: "bob@example.com",
+        password: await bcrypt.hash("reunion", 10),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ];
 
-    // await queryInterface.bulkInsert("Users", users, {});
+    await queryInterface.bulkInsert("Users", users, {});
     const posts = [];
 
     // generate 10 fake posts
@@ -47,17 +47,17 @@ module.exports = {
     const comments = [];
 
     // generate 15 fake comments for post 1-5 by users 1-3
-    // for (let i = 1; i <= 15; i++) {
-    //   comments.push({
-    //     postId: faker.random.number({ min: 1, max: 5 }),
-    //     userId: faker.random.number({ min: 1, max: 3 }),
-    //     content: faker.lorem.sentences(2),
-    //     createdAt: new Date(),
-    //     updatedAt: new Date(),
-    //   });
-    // }
+    for (let i = 1; i <= 15; i++) {
+      comments.push({
+        postId: faker.random.number({ min: 1, max: 5 }),
+        userId: faker.random.number({ min: 1, max: 3 }),
+        content: faker.lorem.sentences(2),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+    }
 
-    // await queryInterface.bulkInsert("Comments", comments, {});
+    await queryInterface.bulkInsert("Comments", comments, {});
   },
 
   down: async (queryInterface, Sequelize) => {

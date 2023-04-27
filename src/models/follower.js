@@ -40,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
+      indexes: [{ fields: ["postId", "userId"], unique: true }],
       sequelize,
       modelName: "Follower",
     }

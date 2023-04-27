@@ -38,7 +38,6 @@ module.exports = class JoiValidator {
     }
   }
   static idSchema(body) {
-    console.log(body)
     const schema = JoiInstance.object().keys({
       id: Joi.number().exist().required()
     });

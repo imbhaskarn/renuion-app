@@ -33,7 +33,7 @@ module.exports = {
       references: {
         table: "Users",
         field: "id",
-        onDelete: 'CASCADE' // Specify the ON DELETE action
+        onDelete: "CASCADE", // Specify the ON DELETE action
       },
     });
     await queryInterface.addConstraint("Followers", {
@@ -43,11 +43,16 @@ module.exports = {
       references: {
         table: "Users",
         field: "id",
-        onDelete: 'CASCADE' // Specify the ON DELETE action
+        onDelete: "CASCADE", // Specify the ON DELETE action
       },
+    });
+    await queryInterface.addIndex("Followers", ["followedBy", "userId"], {
+      unique: true,
+      name: "self_follow_index",
     });
   },
   async down(queryInterface, Sequelize) {
+    await queryInterface.removeIndex("Followers", "self_follow_index");
     await queryInterface.removeConstraint(
       "Followers",
       "follower_user_constraint"
