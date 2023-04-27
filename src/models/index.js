@@ -9,12 +9,7 @@ const env = process.env.NODE_ENV || "development";
 const config = require("../../config/config")[env];
 const db = {};
 
-const sequelize = new Sequelize(config.DB_URI);
-
-sequelize
-  .authenticate()
-  .then(() => console.log("Connection has been established successfully."))
-  .catch((error) => console.error("Unable to connect to the database:", error));
+const sequelize = new Sequelize(config.DB_URI, {logging: false});
 
 fs.readdirSync(__dirname)
   .filter((file) => {
