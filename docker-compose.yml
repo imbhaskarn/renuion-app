@@ -1,0 +1,38 @@
+services:
+  db:
+    container_name: reunion_db
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: reunion
+    network_mode: host
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+
+  app:
+    container_name: reunion_api
+    build: .
+    restart: always
+    network_mode: host
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres:example@localhost:5432/reunion
+      NODE_ENV: development
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    network_mode: host
+
+    depends_on:
+      - db
+      - app
+    volumes:
+      - .:/app
+    command: npm run
+
+volumes:
+  dbdata:
