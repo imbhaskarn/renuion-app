@@ -20,18 +20,7 @@ services:
       - db
     environment:
       NODE_ENV: development
-  test:
-    build:
-      context: .
-    network_mode: host
-
-    depends_on:
-      - db
-      - app
-    volumes:
-      - .:/app
-    command: npm 
-
+  
 
 volumes:
   dbdata:

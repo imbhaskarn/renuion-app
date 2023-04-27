@@ -2,13 +2,12 @@
 
 require("dotenv").config();
 const APP_PORT = process.env.APP_PORT || "5000";
-
 const config = {
   development: {
     APP_HOST: "0.0.0.0",
     APP_PORT: APP_PORT,
     JWT_SECRET: process.env.JWT_SECRET,
-    DB_URI: `postgres://postgres:secret@localhost:5432/reunion`,
+    DB_URI: process.env.DB_URI,
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
@@ -20,7 +19,7 @@ const config = {
     APP_HOST: "0.0.0.0",
     APP_PORT: APP_PORT,
     JWT_SECRET: process.env.JWT_SECRET,
-    DB_URI: `postgres://postgres:secret@localhost:5432/reunion`,
+    DB_URI: process.env.DB_URI,
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,

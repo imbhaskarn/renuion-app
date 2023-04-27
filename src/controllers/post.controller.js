@@ -33,7 +33,7 @@ const getPost = async (req, res) => {
     const comments = await post.countComments();
     return res.status(200).json({ ...post.dataValues, comments });
   } catch (error) {
-    console.log(err);
+    console.log(error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
