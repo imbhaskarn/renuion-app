@@ -8,15 +8,13 @@ const authController = (req, res) => {
   const error = JoiValidator.userSchema(req.body);
 
   if (error) {
-    return res.status(400).json({ message: error });
+    return res.status(400).json({ error: error });
   }
   // find user in database
   db.User.findOne({ where: { email: req.body.email } })
     .then(async (user) => {
       if (!user) {
-        return res
-          .status(400)
-          .json({ message: "wrong email or password!" });
+        return res.status(400).json({ error: "wrong email or password!" });
       }
       const { id, name, email } = user.dataValues;
       //validate user password
@@ -25,9 +23,7 @@ const authController = (req, res) => {
         user.dataValues.password
       );
       if (!isMatch)
-        return res
-          .status(400)
-          .json({ result: "success", message: "wrong email or password!" });
+        return res.status(400).json({ error: "wrong email or password!" });
       //generate jwt access token
       const accessToken = jwt.sign(
         { id, name, email },
@@ -37,7 +33,7 @@ const authController = (req, res) => {
       return res.status(200).json({ accessToken });
     })
     .catch((e) => {
-      return res.status(500).json({ message: "Internal server error" });
+      return res.status(500).json({ error: "Internal server error" });
     });
 };
 

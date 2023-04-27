@@ -29,10 +29,17 @@ module.exports = {
     ];
 
     await queryInterface.bulkInsert("Users", users, {});
-    const posts = [];
+    const posts = [{
+      title: 'dolore dolorum blanditiis adipisci',
+      userId: 1,
+      description: faker.lorem.paragraphs(1),
+      likes: 0,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }];
 
     // generate 10 fake posts
-    for (let i = 1; i <= 25; i++) {
+    for (let i = 1; i <= 15; i++) {
       posts.push({
         title: faker.lorem.words(3),
         userId: faker.random.number({ min: 1, max: 3 }),

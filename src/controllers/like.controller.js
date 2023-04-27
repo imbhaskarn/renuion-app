@@ -8,6 +8,7 @@ const likePost = (req, res) => {
   }
   db.Like.create({ userId: req.payload.id, postId: req.params.id })
     .then((data) => {
+      console.log(req.params)
       return res.status(201).json({ message: "like success" });
     })
     .catch((err) => {
