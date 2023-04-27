@@ -27,8 +27,7 @@ services:
       - traefik.http.routers.reunion-http.middlewares=https-redirect
       #- traefik.http.routers.app-https.middlewares=admin-auth
       - traefik.docker.network=towapp
-    networks:
-      - reunion
+
 
 networks:
   reunion:
